@@ -10,7 +10,7 @@ def AboveMinimum (bet, minbet):
     print(output)
 
 
-def SpinTheWheel (bets):##
+def SpinTheWheel (bets):
     winnumb=random.randint(0,36)
     output = []
     for item in bets:
