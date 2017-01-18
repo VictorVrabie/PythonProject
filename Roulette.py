@@ -38,10 +38,35 @@ bets1 = [10, 24, 36, 0, 11, 24]
 
 class Roulette(object):
     def Roulette(minbet):
-        return NumAboveMinimum(amounts1,minbet)
-    def SimulateGame(self):
-        return SpinTheWheel(self)
+        return AboveMinimum(amounts1,minbet)
 
-table1 = Roulette.Roulette(100)
-print(table1.SimulateGame)
+    def Win(minbet):
+        vec=[]
+        gain = 0
+        for item in amounts1:
+            if item>minbet:
+                vec.append(item)
+                gain += 0
+            else:
+                gain += item
+                vec.append(0)
+        return ([gain,vec])
+print(Roulette.Win(100))
+
+
+
+
+
+
+def min(minbet):
+    output = []
+    for item in amounts1:
+        if item > minbet:
+            output.append(bets1[amounts1.index(item)])
+    return(SpinTheWheel(output))
+    return([sum(),])
+print(min(50))
+
+
+
 
