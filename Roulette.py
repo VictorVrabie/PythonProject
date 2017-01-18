@@ -40,16 +40,16 @@ class Roulette(object):
     def Roulette(minbet):
         return AboveMinimum(amounts1,minbet)
 
-    def Win(minbet):
+    def SimulateGame(minbet,bet,amount):
         vec = []
         gain = 0
         winnumb = random.randint(0, 36)
         print(" Ball lands on " + str(winnumb))
-        for item in amounts1:
+        for item in amount:
             if item <= minbet:
                 vec.append(0)
                 gain += item
-            elif bets1[amounts1.index(item)] != winnumb:
+            elif bet[amounts1.index(item)] != winnumb:
                 vec.append(0)
                 gain += item
             else:
@@ -58,22 +58,9 @@ class Roulette(object):
         return ([gain, vec])
 
 
+table1 = Roulette.Roulette(100)
+print(Roulette.SimulateGame(100,bets1,amounts1))
 
-print(Roulette.Win(100))
-
-
-
-
-
-
-def min(minbet):
-    output = []
-    for item in amounts1:
-        if item > minbet:
-            output.append(bets1[amounts1.index(item)])
-    return(SpinTheWheel(output))
-    return([sum(),])
-print(min(50))
 
 
 
