@@ -34,7 +34,7 @@ def SpinTheWheel (bets):
 
 
 amounts1 = [10, 85, 120, 65, 150, 122]
-bets1 = [10, 24, 36, 0, 11, 24]
+bets1 = [10, 24, 30, 0, 11, 24]
 
 class Roulette(object):
     def Roulette(minbet):
@@ -44,22 +44,19 @@ class Roulette(object):
         vec = []
         gain = 0
         winnumb = random.randint(0, 36)
-        SpinTheWheel(bets1)
+        print(" Ball lands on " + str(winnumb))
         for item in amounts1:
-            if item > minbet:
-                vec.append(item)
-                gain += 0
-            else:
-                gain += item
+            if item <= minbet:
                 vec.append(0)
-        for x in bets1:
-            if x == winnumb:
-                vec[bets1.index(x)] = 30 * vec[bets1.index(x)]
-                gain += 0
+                gain += item
+            elif bets1[amounts1.index(item)] != winnumb:
+                vec.append(0)
+                gain += item
             else:
-                gain += vec[bets1.index(x)]
-                vec[bets1.index(x)] = 0
+                vec.append(item * 30)
+
         return ([gain, vec])
+
 
 
 print(Roulette.Win(100))
