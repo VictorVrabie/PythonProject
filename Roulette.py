@@ -41,16 +41,27 @@ class Roulette(object):
         return AboveMinimum(amounts1,minbet)
 
     def Win(minbet):
-        vec=[]
+        vec = []
         gain = 0
+        winnumb = random.randint(0, 36)
+        SpinTheWheel(bets1)
         for item in amounts1:
-            if item>minbet:
+            if item > minbet:
                 vec.append(item)
                 gain += 0
             else:
                 gain += item
                 vec.append(0)
-        return ([gain,vec])
+        for x in bets1:
+            if x == winnumb:
+                vec[bets1.index(x)] = 30 * vec[bets1.index(x)]
+                gain += 0
+            else:
+                gain += vec[bets1.index(x)]
+                vec[bets1.index(x)] = 0
+        return ([gain, vec])
+
+
 print(Roulette.Win(100))
 
 
