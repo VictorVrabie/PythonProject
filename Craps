@@ -33,7 +33,7 @@ def SimulateGame(minbet,bet,amount):
         if a[item]*r[item]==0:
             vec.append(0)
             gain += amount[item]
-        elif bet[item]==:
+        elif :
             vec.append(amount[item]*30)
     return ([gain, vec])
 
