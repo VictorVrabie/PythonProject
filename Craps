@@ -11,34 +11,49 @@ def AboveMinimum (bet, minbet):
 
 Dices = random.randint(2,12)
 
-
 def RollTheDice(bets):
     output = []
-    print("The winning sum is " + str(Dices))
     for item in bets:
         output.append(bool(item == Dices))
+    print("The winning sum is " + str(Dices))
     if sum(output) > 0:
         print(" There are " + str(sum(output)) + " winner(s)")
     else:
         print("No player won")
+    return (output)
+
+def SimulateGame(minbet,bet,amount):
+    vec = []
+    gain = 0
+    a = AboveMinimum(amount, minbet)
+    r = RollTheDice(bet)
+    rng=list(range(2,13))
+    coeff=[42.65, 35.54, 28.43, 21.32, 14.21, 7.11, 14.21, 21.23, 28.43, 35.54, 42.65]
+    for item in range(len(amount)):
+        if a[item]*r[item]==0:
+            vec.append(0)
+            gain += amount[item]
+        elif bet[item]==:
+            vec.append(amount[item]*30)
+    return ([gain, vec])
 
 
-def SimulateGame(bets,amounts):
-    import random
-    random.seed(3456)
-    thousandsthrows = []
-    for i in range(1000):
-        thousandsthrows.append(int(random.randint(1, 6)) + int(random.randint(1, 6)))
-    print(thousandsthrows)
+# import random
+# random.seed(3456)
+# thousandsthrows = []
+# for i in range(1000):
+#     thousandsthrows.append(int(random.randint(1, 6)) + int(random.randint(1, 6)))
+#
+# from collections import Counter
+# import numpy as np
+# from matplotlib import pyplot as plt
+#
+# labels, values = zip(*Counter(thousandsthrows).items())
+# indexes = np.arange(len(labels))
+# width = 1
+# plt.bar(indexes, values, width)
+# plt.xticks(indexes + width * 0.5, labels)
+# plt.show()
 
-    from collections import Counter
-    import numpy as np
-    from matplotlib import pyplot as plt
 
-    labels, values = zip(*Counter(thousandsthrows).items())
-    indexes = np.arange(len(labels))
-    width = 1
-    plt.bar(indexes, values, width)
-    plt.xticks(indexes + width * 0.5, labels)
-    plt.show()
 

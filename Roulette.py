@@ -24,10 +24,13 @@ def SpinTheWheel (bets):
 
 class Roulette(object):
 
+    def Roulette(minbet):
+        Roulette.Roulette = minbet
+
     def SimulateGame(minbet,bet,amount):
         vec = []
         gain = 0
-        a = AboveMinimum(amount, 100)
+        a = AboveMinimum(amount, minbet)
         s = SpinTheWheel(bet)
         for item in range(len(amount)):
             if a[item]*s[item]==0:
