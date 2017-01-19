@@ -24,3 +24,21 @@ def RollTheDice(bets):
 
 
 def SimulateGame(bets,amounts):
+    import random
+    random.seed(3456)
+    thousandsthrows = []
+    for i in range(1000):
+        thousandsthrows.append(int(random.randint(1, 6)) + int(random.randint(1, 6)))
+    print(thousandsthrows)
+
+    from collections import Counter
+    import numpy as np
+    from matplotlib import pyplot as plt
+
+    labels, values = zip(*Counter(thousandsthrows).items())
+    indexes = np.arange(len(labels))
+    width = 1
+    plt.bar(indexes, values, width)
+    plt.xticks(indexes + width * 0.5, labels)
+    plt.show()
+

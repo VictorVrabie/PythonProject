@@ -1,12 +1,12 @@
 import random
-# This is used to fixethe random generator so we can test the output
+# This is used to fixe the random generator so we can test the output
 random.seed(3456)
 
 
 def AboveMinimum (bet, minbet):
     output = []
     for item in bet:
-        output.append(bool(item>=minbet))
+        output.append(bool(item>= minbet))
     return(output)
 
 def SpinTheWheel (bets):
@@ -17,34 +17,24 @@ def SpinTheWheel (bets):
     print(" Spinning the wheel...")
     print(" Ball lands on " + str(winnumb))
     if sum(output) > 0:
-        print(" There are " + str(sum(output)) + "correct bet(s)")
+        print(" There are " + str(sum(output)) + " correct bet(s)")
     else:
         print("No winners this round")
-
+    return (output)
 
 class Roulette(object):
 
     def SimulateGame(minbet,bet,amount):
         vec = []
         gain = 0
-        winners = 0
-        winnumb = random.randint(0, 36)
-        print(" Spinning the wheel...")
-        print(" Ball lands on " + str(winnumb))
-        for item in amount:
-            if item < minbet:
+        a = AboveMinimum(amount, 100)
+        s = SpinTheWheel(bet)
+        for item in range(len(amount)):
+            if a[item]*s[item]==0:
                 vec.append(0)
-                gain += item
-            elif bet[amounts1.index(item)] != winnumb:
-                vec.append(0)
-                gain += item
+                gain += amount[item]
             else:
-                vec.append(item * 30)
-                winners += 1
-        if winners != 0 :
-            print("There is/are " + str(winners) + " correct bet(s)")
-        else:
-            print("No winners this round")
+                vec.append(amount[item]*30)
         return ([gain, vec])
 
 
