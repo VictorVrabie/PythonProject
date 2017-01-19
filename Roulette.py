@@ -9,17 +9,6 @@ def AboveMinimum (bet, minbet):
         output.append(bool(item>=minbet))
     return(output)
 
-
-def NumAboveMinimum (bet, minbet):
-    output = []
-    for item in bet:
-        if item >= minbet:
-            output.append(item)
-        else:
-            output.append(0)
-    return(output)
-
-
 def SpinTheWheel (bets):
     winnumb=random.randint(0,36)
     output = []
@@ -34,8 +23,6 @@ def SpinTheWheel (bets):
 
 
 class Roulette(object):
-    def Roulette(minbet):
-        return AboveMinimum(amounts1,minbet)
 
     def SimulateGame(minbet,bet,amount):
         vec = []
@@ -63,7 +50,6 @@ class Roulette(object):
 
 amounts1 = [10, 85, 120, 65, 150, 122]
 bets1 = [10, 24, 36, 0, 11, 24]
-table1 = Roulette.Roulette(100)
 print(Roulette.SimulateGame(100,bets1,amounts1))
 print(Roulette.SimulateGame(100,bets1,amounts1))
 
