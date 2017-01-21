@@ -15,13 +15,13 @@ class Roulette:
                 output.append(bool(item >= self.min))
             return(output)
 
-        def SpinTheWheel (bet):
+        def RollTheDice (bet):
             Dices = random.randint(2, 12)
             output = []
             for item in bet:
                 output.append(bool(item == Dices))
-            print(" Spinning the wheel...")
-            print(" Ball lands on " + str(Dices))
+            print(" Throwing the dices")
+            print(" The winning sum is " + str(Dices))
             if sum(output) > 0:
                 print(" There are " + str(sum(output)) + " winner(s)")
             else:
@@ -39,7 +39,7 @@ class Roulette:
                 vec.append(0)
                 gain += amount[item]
             elif:
-                vec.append(amount[item] * 30)
+
         return ([gain, vec])
 
 
