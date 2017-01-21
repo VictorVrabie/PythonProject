@@ -3,7 +3,7 @@ import random
 random.seed(3456)
 
 class Roulette:
-    def __init__(self,min):
+    def __init__(self, min):
         self.min = min
 
     def SimulateGame(self, bet, amount):
@@ -33,7 +33,7 @@ class Roulette:
         a = AboveMinimum(amount)
         s = SpinTheWheel(bet)
         for item in range(len(amount)):
-            if a[item]*s[item]==0:
+            if a[item]*s[item]== 0:
                 vec.append(0)
                 gain += amount[item]
             else:
