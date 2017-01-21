@@ -3,39 +3,44 @@ import random
 random.seed(3456)
 
 
-def AboveMinimum (bet, minbet):
-    output = []
-    for item in bet:
-        output.append(bool(item>=minbet))
-    return(output)
+class Roulette:
+    def __init__(self,min):
+        self.min = min
 
-Dices = random.randint(2,12)
+    def SimulateGame(self, bet, amount):
 
-def RollTheDice(bets):
-    output = []
-    for item in bets:
-        output.append(bool(item == Dices))
-    print("The winning sum is " + str(Dices))
-    if sum(output) > 0:
-        print(" There are " + str(sum(output)) + " winner(s)")
-    else:
-        print("No player won")
-    return (output)
+        def AboveMinimum (amount):
+            output = []
+            for item in amount:
+                output.append(bool(item >= self.min))
+            return(output)
 
-def SimulateGame(minbet,bet,amount):
-    vec = []
-    gain = 0
-    a = AboveMinimum(amount, minbet)
-    r = RollTheDice(bet)
-    rng=list(range(2,13))
-    coeff=[42.65, 35.54, 28.43, 21.32, 14.21, 7.11, 14.21, 21.23, 28.43, 35.54, 42.65]
-    for item in range(len(amount)):
-        if a[item]*r[item]==0:
-            vec.append(0)
-            gain += amount[item]
-        elif :
-            vec.append(amount[item]*30)
-    return ([gain, vec])
+        def SpinTheWheel (bet):
+            Dices = random.randint(2, 12)
+            output = []
+            for item in bet:
+                output.append(bool(item == Dices))
+            print(" Spinning the wheel...")
+            print(" Ball lands on " + str(Dices))
+            if sum(output) > 0:
+                print(" There are " + str(sum(output)) + " winner(s)")
+            else:
+                print("No player won")
+            return (output)
+
+        vec = []
+        gain = 0
+        a = AboveMinimum(amount)
+        r = RollTheDice(bet)
+        rng = list(range(2, 13))
+        coeff = [42.65, 35.54, 28.43, 21.32, 14.21, 7.11, 14.21, 21.23, 28.43, 35.54, 42.65]
+        for item in range(len(amount)):
+            if a[item] * r[item] == 0:
+                vec.append(0)
+                gain += amount[item]
+            elif:
+                vec.append(amount[item] * 30)
+        return ([gain, vec])
 
 
 # import random
