@@ -28,19 +28,29 @@ class Craps:
                 print("No player won")
             return (output)
 
+        def Gain(bet, amount):
+            gain = []
+            for i in range(len(bet)):
+                if bet[i] in list(range(2, 13)):
+                    gain.append(amount[i] * Coeff[int(bet[i]) - 2])
+                else:
+                    gain.append(0)
+            return (gain)
+
+        Coeff = [42.65, 35.54, 28.43, 21.32, 14.21, 7.11, 14.21, 21.23, 28.43, 35.54, 42.65]
         vec = []
         gain = 0
         a = AboveMinimum(amount)
         r = RollTheDice(bet)
-        rng = list(range(2, 13))
-        coeff = [42.65, 35.54, 28.43, 21.32, 14.21, 7.11, 14.21, 21.23, 28.43, 35.54, 42.65]
         for item in range(len(amount)):
             if a[item] * r[item] == 0:
                 vec.append(0)
                 gain += amount[item]
-            elif:
-
+            else:
+                vec.append(amount[item] * Coeff[int(bet[item] - 2)])
         return ([gain, vec])
+
+
 
 
 # import random
