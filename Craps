@@ -3,7 +3,7 @@ import random
 random.seed(3456)
 
 
-class Roulette:
+class Craps:
     def __init__(self,min):
         self.min = min
 
