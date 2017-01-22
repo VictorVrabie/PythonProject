@@ -29,7 +29,7 @@ class Roulette:
 
         PlayerGains = [i * j * k * 30 for i, j, k in zip(amount, AboveMinimum(amount), SpinTheWheel(bet))]
         CasinoGain = sum(amount) - sum(PlayerGains)
-        return [CasinoGain, [i  for i in PlayerGains]]
+        return [CasinoGain, [i for i in PlayerGains]]
 
 
 
