@@ -27,18 +27,9 @@ class Roulette:
                 print("No winners this round")
             return (output)
 
-
-        vec = []
-        gain = 0
-        a = AboveMinimum(amount)
-        s = SpinTheWheel(bet)
-        for item in range(len(amount)):
-            if a[item]*s[item]== 0:
-                vec.append(0)
-                gain += amount[item]
-            else:
-                vec.append(amount[item]*30)
-        return ([gain, vec])
+        PlayerGains = [i * j * k for i, j, k in zip(amount, AboveMinimum(amount), SpinTheWheel(bet))]
+        CasinoGain = sum(amount) - sum(PlayerGains)
+        return [CasinoGain, [i * 30 for i in PlayerGains]]
 
 
 

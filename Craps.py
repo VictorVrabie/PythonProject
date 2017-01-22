@@ -29,18 +29,9 @@ class Craps:
             return (output)
 
         Coeff = [42.65, 35.54, 28.43, 21.32, 14.21, 7.11, 14.21, 21.23, 28.43, 35.54, 42.65]
-        vec = []
-        gain = 0
-        a = AboveMinimum(amount)
-        r = RollTheDice(bet)
-        for item in range(len(amount)):
-            if a[item] * r[item] == 0:
-                vec.append(0)
-                gain += amount[item]
-            else:
-                vec.append(amount[item] * Coeff[int(bet[item] - 2)])
-        return ([gain, vec])
-
+        PlayerGains = [i * Coeff[k-2] *j * l for i, j, k, l in zip(amount,bet, AboveMinimum(amount), RollTheDice(bet))]
+        CasinoGain = sum(amount) - sum(PlayerGains)
+        return [CasinoGain, [i  for i in PlayerGains]]
 
 
 
