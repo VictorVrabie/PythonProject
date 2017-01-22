@@ -29,6 +29,7 @@ class Craps:
             return (output)
 
         Coeff = [42.65, 35.54, 28.43, 21.32, 14.21, 7.11, 14.21, 21.23, 28.43, 35.54, 42.65]
+        #altCoeff = [66.59205776173285, 32.23423423423423, 20.80912364945978, 15.1017101710171, 11.688760806916425, 9.40456182472989, 11.688760806916425, 15.1017101710171, 20.80912364945978, 32.23423423423423, 66.59205776173285]
         PlayerGains = [i * Coeff[k-2] *j * l for i, j, k, l in zip(amount,bet, AboveMinimum(amount), RollTheDice(bet))]
         CasinoGain = sum(amount) - sum(PlayerGains)
         return [CasinoGain, [i  for i in PlayerGains]]
