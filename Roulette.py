@@ -27,9 +27,9 @@ class Roulette:
                 print("No winners this round")
             return (output)
 
-        PlayerGains = [i * j * k for i, j, k in zip(amount, AboveMinimum(amount), SpinTheWheel(bet))]
+        PlayerGains = [i * j * k * 30 for i, j, k in zip(amount, AboveMinimum(amount), SpinTheWheel(bet))]
         CasinoGain = sum(amount) - sum(PlayerGains)
-        return [CasinoGain, [i * 30 for i in PlayerGains]]
+        return [CasinoGain, [i  for i in PlayerGains]]
 
 
 
