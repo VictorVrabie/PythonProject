@@ -28,14 +28,17 @@ class Craps:
                 print("No player won")
             return (output)
 
-        Coeff = [42.65, 35.54, 28.43, 21.32, 14.21, 7.11, 14.21, 21.23, 28.43, 35.54, 42.65]
-        #altCoeff = [66.59205776173285, 32.23423423423423, 20.80912364945978, 15.1017101710171, 11.688760806916425, 9.40456182472989, 11.688760806916425, 15.1017101710171, 20.80912364945978, 32.23423423423423, 66.59205776173285]
-        PlayerGains = [i * Coeff[k-2] *j * l for i, j, k, l in zip(amount,bet, AboveMinimum(amount), RollTheDice(bet))]
-        CasinoGain = sum(amount) - sum(PlayerGains)
-        PlayedSum= sum(amount)
-        #return [CasinoGain, [i  for i in PlayerGains], PlayedSum]
-        return [CasinoGain, PlayedSum]
+        Coeff = [30.490974729241877, 14.216216216216218, 8.804321728691477, 6.100810081008101, 4.484149855907781, 3.4021608643457384, 4.484149855907781, 6.100810081008101, 8.804321728691477, 14.216216216216218,30.490974729241877]
+        PlayerGain = [i * Coeff[k - 2] * j * l for i, j, k, l in zip(amount, bet, AboveMinimum(amount), RollTheDice(bet))]
+        TotalAmount = sum(amount)
+        CasinoGain = 0
+        PlayerGains = sum(PlayerGain)
+        for i in range(len(PlayerGain)):
+            if PlayerGain[i]== 0:
+                CasinoGain += int(amount[i])
 
+        # return [CasinoGain, [i  for i in PlayerGains], PlayedSum]
+        return [CasinoGain, TotalAmount, PlayerGains]
 
 # import random
 # random.seed(3456)
