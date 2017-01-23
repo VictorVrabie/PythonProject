@@ -28,17 +28,18 @@ class Craps:
                 print("No player won")
             return (output)
 
-        Coeff = [30.490974729241877, 14.216216216216218, 8.804321728691477, 6.100810081008101, 4.484149855907781, 3.4021608643457384, 4.484149855907781, 6.100810081008101, 8.804321728691477, 14.216216216216218,30.490974729241877]
+        Probs = list([i / 36 for i in range(1, 6)]) + [6 / 36] + list(reversed([i / 36 for i in range(1, 6)]))
+        Coeff = [0.9 /i for i in Probs]
+
         PlayerGain = [i * Coeff[k - 2] * j * l for i, j, k, l in zip(amount, bet, AboveMinimum(amount), RollTheDice(bet))]
-        TotalAmount = sum(amount)
         CasinoGain = 0
-        PlayerGains = sum(PlayerGain)
+        # PlayerGains = sum(PlayerGain)
         for i in range(len(PlayerGain)):
             if PlayerGain[i]== 0:
                 CasinoGain += int(amount[i])
 
         # return [CasinoGain, [i  for i in PlayerGains], PlayedSum]
-        return [CasinoGain, TotalAmount, PlayerGains]
+        return [CasinoGain, PlayerGain]
 
 # import random
 # random.seed(3456)

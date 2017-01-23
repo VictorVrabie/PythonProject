@@ -1,8 +1,4 @@
 import random
-import numpy as np
-# This is used to fixethe random generator so we can test the output
-
-
 import Roulette
 import Craps
 #
@@ -13,20 +9,25 @@ import Craps
 # print(table1.SimulateGame(bets1, amounts1))
 
 
-out = [0,0,0]
+out = [0,0]
 MinBet = [0, 25, 50]
 
-# for i in range(100000):
-#     players = random.randint(0,6)
-#     MinBetX = random.choice(MinBet)
-#     amount = random.sample(range(MinBetX,100),players)
-#     bet = random.sample(range(2,13),players)
-#     table1 = Craps.Craps(MinBetX)
-#     out = [i+j for i,j in zip(out,table1.SimulateGame(bet, amount))]
-#     print(out)
+for i in range(10000):
+    players = random.randint(0,6)
+    MinBetX = random.choice(MinBet)
+    amount = random.sample(range(MinBetX,100),players)
+    bet = random.sample(range(2,13),players)
+    table1 = Craps.Craps(MinBetX)
+    out = [i+j for i,j in zip(out,table1.SimulateGame(bet, amount))]
+    print(out)
+print(out[0]/(out[0]+out[1]))
 
 
-print(16916367/(16916367+356726841))
+# Times = list([i for i in range(1,6)]) + [6] + list(reversed([i for i in range(1,6)]))
+# Probs = list([i/36 for i in range(1,6)]) + [6/36] + list(reversed([i/36 for i in range(1,6)]))
+# Coeff = [0.9/i for i in Probs]
+
+
 
 
 
