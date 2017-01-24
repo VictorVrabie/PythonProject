@@ -1,7 +1,6 @@
 import random
-
-
-
+# This is used to fixe the random generator so we can test the output
+random.seed(3456)
 class Craps:
     def __init__(self,min):
         self.min = min
