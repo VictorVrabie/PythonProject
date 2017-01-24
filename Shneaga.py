@@ -1,6 +1,7 @@
 import random
 import Roulette
 import Craps
+random.seed(3456)
 #
 # amounts1 = [10, 85, 120, 65, 150, 122]
 # bets1 = [10, 24, 36, 0, 11, 24]
@@ -12,10 +13,10 @@ import Craps
 out = [0,0]
 MinBet = [0, 25, 50]
 
-for i in range(10000):
+for i in range(1000):
     players = random.randint(0,6)
     MinBetX = random.choice(MinBet)
-    amount = random.sample(range(MinBetX,100),players)
+    amount = random.sample(range(0,150),players)
     bet = random.sample(range(2,13),players)
     table1 = Craps.Craps(MinBetX)
     out = [i+j for i,j in zip(out,table1.SimulateGame(bet, amount))]

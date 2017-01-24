@@ -33,13 +33,13 @@ class Craps:
 
         PlayerGain = [i * Coeff[k - 2] * j * l for i, j, k, l in zip(amount, bet, AboveMinimum(amount), RollTheDice(bet))]
         CasinoGain = 0
-        # PlayerGains = sum(PlayerGain)
+        PlayerGains = sum(PlayerGain)
         for i in range(len(PlayerGain)):
             if PlayerGain[i]== 0:
                 CasinoGain += int(amount[i])
 
         # return [CasinoGain, [i  for i in PlayerGains], PlayedSum]
-        return [CasinoGain, PlayerGain]
+        return [CasinoGain, PlayerGains]
 
 # import random
 # random.seed(3456)
