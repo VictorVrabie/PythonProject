@@ -27,6 +27,7 @@ def CustomerTypes(total, returning, bachelor):
 
 x=list(CustomerTypes(10,40,50))
 
+
 y=list(zip([x[i][0] for i in range(len(x))],
       [Customer(x[i][1]).budget for i in range(len(x))],
       [Customer(x[i][1]).bet for i in range(len(x))]))
