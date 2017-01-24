@@ -1,6 +1,5 @@
 import random
-# This is used to fixethe random generator so we can test the output
-random.seed(3456)
+
 
 
 class Craps:
@@ -16,7 +15,7 @@ class Craps:
             return(output)
 
         def RollTheDice (bet):
-            Dices = random.randint(2, 12)
+            Dices = random.randint(1, 6) + random.randint(1,6)
             output = []
             for item in bet:
                 output.append(bool(item == Dices))
@@ -31,15 +30,15 @@ class Craps:
         Probs = list([i / 36 for i in range(1, 6)]) + [6 / 36] + list(reversed([i / 36 for i in range(1, 6)]))
         Coeff = [0.9 /i for i in Probs]
 
-        PlayerGain = [i * Coeff[k - 2] * j * l for i, j, k, l in zip(amount, bet, AboveMinimum(amount), RollTheDice(bet))]
-        CasinoGain = 0
-        PlayerGains = sum(PlayerGain)
-        for i in range(len(PlayerGain)):
-            if PlayerGain[i]== 0:
-                CasinoGain += int(amount[i])
 
-        # return [CasinoGain, [i  for i in PlayerGains], PlayedSum]
+        a=AboveMinimum(amount)
+        r=RollTheDice(bet)
+        PlayerGain = [i * Coeff[k - 2] * j * l for i, k, j, l in zip(amount, bet, a, r)]
+        CasinoGain = sum(amount)-sum(PlayerGain)
+        PlayerGains = sum(PlayerGain)
         return [CasinoGain, PlayerGains]
+
+
 
 # import random
 # random.seed(3456)
