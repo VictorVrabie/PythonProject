@@ -1,5 +1,5 @@
 import random
-
+random.seed(3456)
 
 # EXCERCISE 5
 class Customer(object):
@@ -25,9 +25,7 @@ def CustomerTypes(total, returning, bachelor):
         list.extend(["Bachelor" for i in range(bch)])
         return(zip(range(total),list))
 
-
 x=list(CustomerTypes(10,40,50))
-
 
 y=list(zip([x[i][0] for i in range(len(x))],
       [Customer(x[i][1]).budget for i in range(len(x))],
