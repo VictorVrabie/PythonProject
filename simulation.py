@@ -9,24 +9,35 @@ import Craps
 # table1 = Roulette.Roulette(100)
 # print(table1.SimulateGame(bets1, amounts1))
 # print(table1.SimulateGame(bets1, amounts1))
-#
+
 # amounts1 = [25, 85, 120, 65, 150, 122]
-# bets1 = [10, 24, 36, 0, 11, 24]
+# bets1 = [10, 24, 36, 5, 11, 24]
 # table1 = Craps.Craps(10)
 # print(table1.SimulateGame(bets1, amounts1))
 # print(table1.SimulateGame(bets1, amounts1))
+#
+
+# # Simultaion
+# out = [0,0]
+# MinBet = [0, 25, 50]
+#
+# for i in range(10000):
+#     players = random.randint(0,6)
+#     MinBetX = random.choice(MinBet)
+#     amount = random.sample(range(MinBetX,150),players)
+#     bet = random.sample(range(2,13),players)
+#     table1 = Craps.Craps(MinBetX)
+#     out = [i+j for i,j in zip(out,table1.SimulateGame(bet, amount))]
+#     print(out)
+# print(out[0]/out[1])
 
 
-# Simultaion
-out = [0,0]
-MinBet = [0, 25, 50]
+import Evening
 
-for i in range(10000):
-    players = random.randint(0,6)
-    MinBetX = random.choice(MinBet)
-    amount = random.sample(range(MinBetX,150),players)
-    bet = random.sample(range(2,13),players)
-    table1 = Craps.Craps(MinBetX)
-    out = [i+j for i,j in zip(out,table1.SimulateGame(bet, amount))]
-    print(out)
-print(out[0]/out[1])
+amountsRoulette = [10, 85, 120, 65, 150, 122]
+betsRoulette = [10, 24, 36, 0, 11, 24]
+amountsCraps = [200, 14, 58, 145, 23, 9]
+betsCraps = [4, 5 ,9, 2, 11, 10]
+table1= Evening.Table(100)
+print(table1.SimulateGame("roulette",betsRoulette, amountsRoulette))
+print(table1.SimulateGame("craps",betsCraps, amountsCraps))
