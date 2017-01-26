@@ -1,5 +1,5 @@
 import random
-# random.seed(2)
+random.seed(2)
 
 nbRoulette = 10
 nbCraps = 10
@@ -32,7 +32,6 @@ class Customer(object):
         else:
             self.budget = random.randint(200, 500) + BachelorFree
             self.bet = random.randint(0, int(self.budget))
-        self.table = random.choice(tables)
 
 def CustomerTypes(total, returning, bachelor):
         customers=[]
@@ -50,6 +49,9 @@ def CustomerTypes(total, returning, bachelor):
         return customers
 
 Customers = CustomerTypes(nbCustomers, prcReturning, prcBachelor)
+
+for i in range(nbCustomers):
+    print(Customers[i].typeC,Customers[i].bet,Customers[i].table)
 
 
 listoftables = []
@@ -137,7 +139,6 @@ class Table(object):
             CasinoGain = sum(amounts) - sum(PlayerGains)
             return [CasinoGain, PlayerGains]
 
-print(Table.SimulateGame(Table(11)))
 
 
 
