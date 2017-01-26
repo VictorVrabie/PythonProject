@@ -62,10 +62,6 @@ class Table(object):
             self.amounts.append(self.players[i].bet)
 
 
-
-
-#
-#
 # class Customer:
 #     def __init__(self, typeC):
 #         self.typec = typeC
@@ -114,64 +110,3 @@ class Table(object):
 # class Barmen(Employee):
 #     def Tips(self):
 #         self.tips += Customer.tips
-#
-# class Table:
-#     def __init__(self, min):
-#         self.min = min
-#
-#     def SimulateGame(self,typetable, bet, amount):
-#
-#         def AboveMinimum (amount):
-#             output = []
-#             for item in amount:
-#                 output.append(bool(item >= self.min))
-#             return(output)
-#
-#         self.CasinoGain=0
-#         self.PlayerGains = []
-#
-#         if typetable == "roulette":
-#             def SpinTheWheel(bet):
-#                 winnumb = random.randint(0, 36)
-#                 output = []
-#                 for item in bet:
-#                     output.append(bool(item == winnumb))
-#                 print(" Spinning the wheel...")
-#                 print(" Ball lands on " + str(winnumb))
-#                 if sum(output) > 0:
-#                     print(" There are " + str(sum(output)) + " correct bet(s)")
-#                 else:
-#                     print("No winners this round")
-#                 return (output)
-#             self.PlayerGains = [i * j * k * 30 for i, j, k in zip(amount, AboveMinimum(amount), SpinTheWheel(bet))]
-#             self.CasinoGain = sum(amount) - sum(self.PlayerGains)
-#             if self.CasinoGain > 0:
-#                 self.CasinoGain = self.CasinoGain*0.95
-#
-#         elif typetable == "craps":
-#             def RollTheDice(bet):
-#                 Dices = random.randint(1, 6) + random.randint(1, 6)
-#                 output = []
-#                 for item in bet:
-#                     output.append(bool(item == Dices))
-#                 print(" Throwing the dices")
-#                 print(" The winning sum is " + str(Dices))
-#                 if sum(output) > 0:
-#                     print(" There are " + str(sum(output)) + " winner(s)")
-#                 else:
-#                     print("No player won")
-#                 return (output)
-#
-#             Probs = list([i / 36 for i in range(1, 6)]) + [6 / 36] + list(reversed([i / 36 for i in range(1, 6)]))
-#             Coeff = [0.9 / i for i in Probs]
-#
-#             a = AboveMinimum(amount)
-#             r = RollTheDice(bet)
-#             self.PlayerGains = [i * j * l * Coeff[k - 2] for i, j, l, k in zip(amount, a, r, bet)]
-#             self.CasinoGain = sum(amount) - sum(self.PlayerGains)
-#             if self.CasinoGain > 0:
-#                 self.CasinoGain = self.CasinoGain*0.95
-#
-#         return [self.CasinoGain, self.PlayerGains]
-#
-
