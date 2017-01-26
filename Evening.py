@@ -1,5 +1,5 @@
 import random
-random.seed(22)
+# random.seed(2)
 
 nbRoulette = 10
 nbCraps = 10
@@ -17,7 +17,7 @@ class Customer(object):
         self.typeC = typeC
         self.ID = ID
         if self.typeC == "Returning":
-            self.bet = 10
+            self.bet = 20
             self.budget = random.randint(100, 300)
         elif self.typeC == "New":
             self.budget = random.randint(200, 300)
@@ -62,36 +62,80 @@ class Table(object):
             self.amounts.append(self.players[i].bet)
 
 class Roulette(Table):
-    def Profit(self):
-        self.CasinoGain = 0
-        self.PlayerGains = []
+    Table.MinimumBet = random.choice([50, 100, 200])
 
-    def AboveMinimum(self):
-        MinimumBet = random.randint([50, 100, 200])
-        output = []
-        for item in amount:
-            output.append(bool(item >= MinimumBet))
-        return (output)
+    def SimulateGame(self):
+        MinimumBet = Table.MinimumBet
+        amounts = self.amounts
+        bets = [random.randint(0,36) for i in amounts]
 
-    def SpinTheWheel(self,bet):
-        winnumb = random.randint(0, 36)
-        output = []
-        for item in bet:
-            output.append(bool(item == winnumb))
-        print(" Spinning the wheel...")
-        print(" Ball lands on " + str(winnumb))
-        if sum(output) > 0:
-            print(" There are " + str(sum(output)) + " correct bet(s)")
-        else:
-            print("No winners this round")
-        return (output)
+        def AboveMinimum(amounts):
+            output = []
+            for item in amounts:
+                output.append(bool(item >= MinimumBet))
+            return output
 
-        self.PlayerGains = [i * j * k * 30 for i, j, k in zip(amount, AboveMinimum(amount), SpinTheWheel(bet))]
-        self.CasinoGain = sum(amount) - sum(self.PlayerGains)
-        if self.CasinoGain > 0:
-            self.CasinoGain = self.CasinoGain * 0.95
+        def SpinTheWheel(bets):
+            winnumb = random.randint(0, 36)
+            output = []
+            for item in bets:
+                output.append(bool(item == winnumb))
+            print(" Spinning the wheel...")
+            print(" Ball lands on " + str(winnumb))
+            if sum(output) > 0:
+                print(" There are " + str(sum(output)) + " correct bet(s)")
+            else:
+                print("No winners this round")
+            return (output)
 
-        return (self.CasinoGain)
+        PlayerGains = [i * j * k * 30 for i, j, k in zip(amounts, AboveMinimum(amounts), SpinTheWheel(bets))]
+        CasinoGain = sum(amounts) - sum(PlayerGains)
+        if CasinoGain > 0:
+            CasinoGain = CasinoGain * 0.95
+        return [CasinoGain, PlayerGains,bets,amounts]
+
+class Craps(Table):
+    def SimulateGame(self):
+        amounts = self.amounts
+        bets = [random.randint(2,12) for i in amounts ]
+        Table.Minimumbet = random.choice([0, 25, 50])
+
+        def AboveMinimum(amounts):
+            minbet = Table.Minimumbet
+            output = []
+            for item in amounts:
+                output.append(bool(item >= minbet))
+            return output
+
+        def RollTheDice(bets):
+            dice = random.randint(1, 6) + random.randint(1, 6)
+            output = []
+            for item in bets:
+                output.append(bool(item == dice))
+            print(" Throwing the dice")
+            print(" The sum of the upper faces  ", dice)
+            if sum(output) > 0:
+                print(" There are ", sum(output), " winner(s)")
+            else:
+                print("No player won")
+            return output
+
+        a = AboveMinimum(amounts)
+        r = RollTheDice(bets)
+        probas = [0.0278, 0.0556, 0.0833, 0.1111, 0.1389, 0.1667, 0.1389, 0.1111, 0.0833, 0.0556, 0.0278]
+        Coeff = [0.9 / j for j in probas]
+        qualify = [i * j for i, j in zip(a, r)]
+        playergains = [i * Coeff[k-2] * j for i, k, j in zip(amounts, bets, qualify)]
+        casinogain = sum(amounts) - sum(playergains)
+        return [casinogain, playergains,bets,amounts]
+
+
+
+x=Craps.SimulateGame(Table(12))
+
+print(x)
+
+
 
 # class Customer:
 #     def __init__(self, typeC):
