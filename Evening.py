@@ -61,7 +61,6 @@ class Table(object):
         for i in range(len(self.players)):
             self.amounts.append(self.players[i].bet)
 
-
 # class Customer:
 #     def __init__(self, typeC):
 #         self.typec = typeC
