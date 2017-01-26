@@ -38,8 +38,10 @@ class Employee :
         self.wage=wage
 
 class Croupier(Employee):
-    def CasinoGain(self):
-        self.profitgain = 0.05*Table.CasinoGain
+    def CasinoGains(self):
+        if Table.CasinoGain > 0:
+        self.profitgain += 0.05*Table.CasinoGain
+
 class Barmen(Employee):
     def Tips(self):
         self.tips += Customer.tips
@@ -47,7 +49,6 @@ class Barmen(Employee):
 class Table:
     def __init__(self, min):
         self.min = min
-        self.croupier = Croupier()
 
     def SimulateGame(self,typetable, bet, amount):
 
@@ -74,7 +75,9 @@ class Table:
                     print("No winners this round")
                 return (output)
             self.PlayerGains = [i * j * k * 30 for i, j, k in zip(amount, AboveMinimum(amount), SpinTheWheel(bet))]
-            self.CasinoGain = sum(amount) - sum(PlayerGains)
+            self.CasinoGain = sum(amount) - sum(self.PlayerGains)
+            if self.CasinoGain > 0:
+                self.CasinoGain = self.CasinoGain*0.95
 
         elif typetable == "craps":
             def RollTheDice(bet):
@@ -96,9 +99,16 @@ class Table:
             a = AboveMinimum(amount)
             r = RollTheDice(bet)
             self.PlayerGains = [i * j * l * Coeff[k - 2] for i, j, l, k in zip(amount, a, r, bet)]
-            self.CasinoGain = sum(amount) - sum(PlayerGains)
+            self.CasinoGain = sum(amount) - sum(self.PlayerGains)
+            if self.CasinoGain > 0:
+                self.CasinoGain = self.CasinoGain*0.95
 
         return [self.CasinoGain, self.PlayerGains]
+
+
+
+
+
 
 
 # class Customer(object):
