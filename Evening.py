@@ -62,10 +62,9 @@ class Table(object):
             self.amounts.append(self.players[i].bet)
 
 class Roulette(Table):
-    Table.MinimumBet = random.choice([50, 100, 200])
 
     def SimulateGame(self):
-        MinimumBet = Table.MinimumBet
+        MinimumBet = random.choice([50, 100, 200])
         amounts = self.amounts
         bets = [random.randint(0,36) for i in amounts]
 
@@ -98,13 +97,12 @@ class Craps(Table):
     def SimulateGame(self):
         amounts = self.amounts
         bets = [random.randint(2,12) for i in amounts ]
-        Table.Minimumbet = random.choice([0, 25, 50])
+        MinimumBet = random.choice([0, 25, 50])
 
         def AboveMinimum(amounts):
-            minbet = Table.Minimumbet
             output = []
             for item in amounts:
-                output.append(bool(item >= minbet))
+                output.append(bool(item >= MinimumBet))
             return output
 
         def RollTheDice(bets):
@@ -131,7 +129,7 @@ class Craps(Table):
 
 
 
-x=Craps.SimulateGame(Table(12))
+x=Roulette.SimulateGame(Table(12))
 
 print(x)
 

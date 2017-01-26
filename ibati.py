@@ -95,7 +95,7 @@ class Roulette(Table):
         CasinoGain = sum(amount) - sum(PlayerGains)
         if CasinoGain > 0:
             CasinoGain = CasinoGain * 0.95
-        return (CasinoGain, PlayerGains)
+        return (CasinoGain, PlayerGains,amount,bets)
 
 
 print(Roulette.SimulateGame(Table(13)))
