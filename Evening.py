@@ -50,10 +50,6 @@ def CustomerTypes(total, returning, bachelor):
 
 Customers = CustomerTypes(nbCustomers, prcReturning, prcBachelor)
 
-for i in range(nbCustomers):
-    print(Customers[i].typeC,Customers[i].bet,Customers[i].table)
-
-
 listoftables = []
 for i in range(1,len(tables)+1):
     tableplayers = []
