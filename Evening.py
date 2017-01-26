@@ -61,6 +61,38 @@ class Table(object):
         for i in range(len(self.players)):
             self.amounts.append(self.players[i].bet)
 
+class Roulette(Table):
+    def Profit(self):
+        self.CasinoGain = 0
+        self.PlayerGains = []
+
+    def AboveMinimum(self):
+        MinimumBet = random.randint([50, 100, 200])
+        output = []
+        for item in amount:
+            output.append(bool(item >= MinimumBet))
+        return (output)
+
+    def SpinTheWheel(self,bet):
+        winnumb = random.randint(0, 36)
+        output = []
+        for item in bet:
+            output.append(bool(item == winnumb))
+        print(" Spinning the wheel...")
+        print(" Ball lands on " + str(winnumb))
+        if sum(output) > 0:
+            print(" There are " + str(sum(output)) + " correct bet(s)")
+        else:
+            print("No winners this round")
+        return (output)
+
+        self.PlayerGains = [i * j * k * 30 for i, j, k in zip(amount, AboveMinimum(amount), SpinTheWheel(bet))]
+        self.CasinoGain = sum(amount) - sum(self.PlayerGains)
+        if self.CasinoGain > 0:
+            self.CasinoGain = self.CasinoGain * 0.95
+
+        return (self.CasinoGain)
+
 # class Customer:
 #     def __init__(self, typeC):
 #         self.typec = typeC
