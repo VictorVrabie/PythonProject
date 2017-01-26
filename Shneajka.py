@@ -16,9 +16,9 @@ class Customer:
             return False
 
 class Returning(Customer):
-    def rich(self):
+    def rich(self, Table.Minbet):
         self.wealth = random.randint(100,300)
-        self.bet = 0
+        self.bet = Table.Minbet
         return False
 
 class OneTime(Customer):
@@ -34,4 +34,15 @@ class Bachelor(Customer):
         return False
 
 
+class Employee :
+    def __init__(self,wage):
+        self.wage=wage
+
+class Croupier(Employee):
+    def CasinoGain(self):
+        self.profitgain = 0.05*Table.CasinoGain
+
+class Barmen(Employee):
+    def Tips(self):
+        self.tips += Customer.tips
 

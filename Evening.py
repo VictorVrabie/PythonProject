@@ -1,8 +1,53 @@
 import random
 
+class Customer:
+    def __init__(self, typeC):
+        self.typec = typeC
+
+    def drinks(self):
+        if self.wealth > 60:
+            self.drink = random.randint(1,2)*20
+            self.tips = random.randint(0,20)
+            self.wealth -= self.drink+self.tips
+            return True
+        else :
+            self.drink = 0
+            self.tips = 0
+            return False
+
+class Returning(Customer):
+    def rich(self):
+        self.wealth = random.randint(100,300)
+        self.bet = Table.min
+        return False
+
+class OneTime(Customer):
+    def rich(self):
+        self.wealth = random.randint(200,300)
+        self.bet = random.randint(0,(self.wealth/3))
+        return False
+
+class Bachelor(Customer):
+    def rich(self):
+        self.wealth = random.randint(200,500) + 0
+        self.bet = random.randint(0,self.wealth)
+        return False
+
+class Employee :
+    def __init__(self,wage):
+        self.wage=wage
+
+class Croupier(Employee):
+    def CasinoGain(self):
+        self.profitgain = 0.05*Table.CasinoGain
+class Barmen(Employee):
+    def Tips(self):
+        self.tips += Customer.tips
+
 class Table:
     def __init__(self, min):
         self.min = min
+        self.croupier = Croupier()
 
     def SimulateGame(self,typetable, bet, amount):
 
@@ -12,8 +57,8 @@ class Table:
                 output.append(bool(item >= self.min))
             return(output)
 
-        CasinoGain=0
-        PlayerGains = []
+        self.CasinoGain=0
+        self.PlayerGains = []
 
         if typetable == "roulette":
             def SpinTheWheel(bet):
@@ -28,8 +73,8 @@ class Table:
                 else:
                     print("No winners this round")
                 return (output)
-            PlayerGains = [i * j * k * 30 for i, j, k in zip(amount, AboveMinimum(amount), SpinTheWheel(bet))]
-            CasinoGain = sum(amount) - sum(PlayerGains)
+            self.PlayerGains = [i * j * k * 30 for i, j, k in zip(amount, AboveMinimum(amount), SpinTheWheel(bet))]
+            self.CasinoGain = sum(amount) - sum(PlayerGains)
 
         elif typetable == "craps":
             def RollTheDice(bet):
@@ -50,33 +95,33 @@ class Table:
 
             a = AboveMinimum(amount)
             r = RollTheDice(bet)
-            PlayerGains = [i * j * l * Coeff[k - 2] for i, j, l, k in zip(amount, a, r, bet)]
-            CasinoGain = sum(amount) - sum(PlayerGains)
+            self.PlayerGains = [i * j * l * Coeff[k - 2] for i, j, l, k in zip(amount, a, r, bet)]
+            self.CasinoGain = sum(amount) - sum(PlayerGains)
 
-        return [CasinoGain, PlayerGains]
+        return [self.CasinoGain, self.PlayerGains]
 
 
-class Customer(object):
-    def __init__(self, typeC):
-        self.typeC = typeC
-        if self.typeC == "Returning":
-            self.bet = 10
-            self.budget = random.randint(100, 300)
-        elif self.typeC == "New":
-            self.budget = random.randint(200, 300)
-            self.bet = random.randint(0, int((self.budget) / 3))
-        else:
-            self.budget = random.randint(200, 500)
-            self.bet = random.randint(0, int(self.budget))
-
-    def CustomerTypes(total, returning, bachelor):
-        ret = int(total * (returning / 100))
-        bch = int(total * (bachelor / 100))
-        new = total - (ret + bch)
-        types = []
-        types.extend(["Returning" for i in range(ret)])
-        types.extend(["New" for i in range(new)])
-        types.extend(["Bachelor" for i in range(bch)])
-        return (list(zip(range(total), [Customer(types[i][1]).budget for i in range(total)],
-                         [Customer(types[i][1]).bet for i in range(total)])))
-
+# class Customer(object):
+#     def __init__(self, typeC):
+#         self.typeC = typeC
+#         if self.typeC == "Returning":
+#             self.bet = 10
+#             self.budget = random.randint(100, 300)
+#         elif self.typeC == "New":
+#             self.budget = random.randint(200, 300)
+#             self.bet = random.randint(0, int((self.budget) / 3))
+#         else:
+#             self.budget = random.randint(200, 500)
+#             self.bet = random.randint(0, int(self.budget))
+#
+#
+# def CustomerTypes(total, returning, bachelor):
+#         ret = int(total * (returning / 100))
+#         bch = int(total * (bachelor / 100))
+#         new = total - (ret + bch)
+#         types = []
+#         types.extend(["Returning" for i in range(ret)])
+#         types.extend(["New" for i in range(new)])
+#         types.extend(["Bachelor" for i in range(bch)])
+#         return (list(zip(range(total), [Customer(types[i][1]).budget for i in range(total)],
+#                          [Customer(types[i][1]).bet for i in range(total)])))
