@@ -77,16 +77,16 @@ class Table(object):
             amounts = self.amounts
             bets = [random.randint(0,36) for i in amounts]
 
-            def AboveMinimum(amounts):
+            def AboveMinimum(amts):
                 output = []
-                for item in amounts:
+                for item in amts:
                     output.append(bool(item >= MinimumBet))
                 return output
 
-            def SpinTheWheel(bets):
+            def SpinTheWheel(bts):
                 winnumb = random.randint(0, 36)
                 output = []
-                for item in bets:
+                for item in bts:
                     output.append(bool(item == winnumb))
                 print(" Spinning the wheel...")
                 print(" Ball lands on " + str(winnumb))
@@ -96,11 +96,13 @@ class Table(object):
                     print("No winners this round")
                 return (output)
 
-            PlayerGains = [i * j * k * 30 for i, j, k in zip(amounts, AboveMinimum(amounts), SpinTheWheel(bets))]
+            A = AboveMinimum(amounts)
+            S = SpinTheWheel(bets)
+            PlayerGains = [i * j * k * 30 for i, j, k in zip(amounts, A, S)]
             CasinoGain = sum(amounts) - sum(PlayerGains)
             if CasinoGain > 0:
                 CasinoGain = CasinoGain * 0.95
-            return [CasinoGain, PlayerGains,bets,amounts]
+            return [CasinoGain, PlayerGains]
 
 
         elif tables[self.number-1][1] == "craps":
@@ -108,16 +110,16 @@ class Table(object):
             amounts = self.amounts
             bets = [random.randint(2,12) for i in amounts ]
 
-            def AboveMinimum(amounts):
+            def AboveMinimum(amts):
                 output = []
-                for item in amounts:
+                for item in amts:
                     output.append(bool(item >= MinimumBet))
                 return output
 
-            def RollTheDice(bets):
+            def RollTheDice(bts):
                 dice = random.randint(1, 6) + random.randint(1, 6)
                 output = []
-                for item in bets:
+                for item in bts:
                     output.append(bool(item == dice))
                 print(" Throwing the dice")
                 print(" The sum of the upper faces  ", dice)
@@ -134,7 +136,7 @@ class Table(object):
             qualify = [i * j for i, j in zip(a, r)]
             playergains = [i * Coeff[k-2] * j for i, k, j in zip(amounts, bets, qualify)]
             casinogain = sum(amounts) - sum(playergains)
-            return [casinogain, playergains,bets,amounts]
+            return [casinogain, playergains]
 
 
 print(Table.SimulateGame(Table(12)))
