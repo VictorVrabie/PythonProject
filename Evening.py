@@ -178,15 +178,10 @@ class Table(object):
 
             return [CasinoGain, PlayerGains,Amounts,Bets]
 
-
-for i in range(len(Table(12).Players)):
-    print(Table(12).Players[i].budget)
-
-
-print(Table.SimulateGame(Table(12)))
-
-for i in range(len(Table(12).Players)):
-    print(Table(12).Players[i].budget)
+TotalGains = 0
+for i in range(len(CasinoTables)+1):
+    TotalGains += float(Table.SimulateGame(Table(i))[0])
+print(TotalGains)
 
 
 # class Customer:
