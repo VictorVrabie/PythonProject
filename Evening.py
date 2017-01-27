@@ -128,7 +128,11 @@ class Table(object):
             CasinoGain = sum(Amounts) - sum(PlayerGains)
             if CasinoGain > 0:
                 CasinoGain = CasinoGain * 0.95
-            return [CasinoGain, PlayerGains]
+
+            for i in range(len(self.Players)):
+                self.Players[i].budget += PlayerGains[i] - Amounts[i]
+
+            return [CasinoGain, PlayerGains,Amounts,Bets]
 
 
         elif CasinoTables[self.number-1][1] == "craps":
@@ -163,11 +167,17 @@ class Table(object):
 
             PlayerGains = [i * Coeff[k-2] * j * l for i, k, j, l in zip(Amounts, Bets, A, R)]
             CasinoGain = sum(Amounts) - sum(PlayerGains)
-            return [CasinoGain, PlayerGains]
+            for i in range(len(self.Players)):
+                self.Players[i].budget += PlayerGains[i] - Amounts[i]
+            return [CasinoGain, PlayerGains,Amounts,Bets]
 
 
-
-print(Table.SimulateGame(Table(12)))
+sum = []
+Customers = []
+for i in range(1,len(CasinoTables)):
+    sum.append(Table.SimulateGame(Table(i))[1])
+    for j in range(len(Table(i).Players)):
+        Customers.append(Table(i).Players[j])
 
 
 
