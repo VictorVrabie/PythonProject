@@ -37,12 +37,17 @@ class Customer(object):
         if self.typeC == "Returning":
             self.budget = random.randint(100, 300)
             self.bet = self.table[2]
+            if self.budget<self.bet:
+                self.bet = 0
         elif self.typeC == "New":
             self.budget = random.randint(200, 300)
             self.bet = random.randint(0, int((self.budget) / 3))
         else:
             self.budget = random.randint(200, 500) + BachelorFree
             self.bet = random.randint(0, int(self.budget))
+
+    def setBudget(self, budget):
+        self.budget += + budget
 
 # Te following step is to create the customers, and only information that we hold about them is their type, so basically
 # we create a list with the number of all the 3 types of costumers, and then using the Customer object we will create a
@@ -130,7 +135,7 @@ class Table(object):
                 CasinoGain = CasinoGain * 0.95
 
             for i in range(len(self.Players)):
-                self.Players[i].budget += PlayerGains[i] - Amounts[i]
+                self.Players[i].setBudget(PlayerGains[i] - Amounts[i])
 
             return [CasinoGain, PlayerGains,Amounts,Bets]
 
@@ -167,19 +172,21 @@ class Table(object):
 
             PlayerGains = [i * Coeff[k-2] * j * l for i, k, j, l in zip(Amounts, Bets, A, R)]
             CasinoGain = sum(Amounts) - sum(PlayerGains)
+
             for i in range(len(self.Players)):
-                self.Players[i].budget += PlayerGains[i] - Amounts[i]
+                self.Players[i].setBudget(PlayerGains[i] - Amounts[i])
+
             return [CasinoGain, PlayerGains,Amounts,Bets]
 
 
-sum = []
-Customers = []
-for i in range(1,len(CasinoTables)):
-    sum.append(Table.SimulateGame(Table(i))[1])
-    for j in range(len(Table(i).Players)):
-        Customers.append(Table(i).Players[j])
+for i in range(len(Table(12).Players)):
+    print(Table(12).Players[i].budget)
 
 
+print(Table.SimulateGame(Table(12)))
+
+for i in range(len(Table(12).Players)):
+    print(Table(12).Players[i].budget)
 
 
 # class Customer:
