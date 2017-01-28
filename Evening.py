@@ -1,5 +1,5 @@
 import random
-# random.seed(2)
+random.seed(2999)
 
 nbRoulette = 10
 nbCraps = 10
@@ -48,6 +48,10 @@ class Customer(object):
 
     def setBudget(self, budget):
         self.budget += + budget
+
+    def setTable(self):
+        self.table = random.choice(CasinoTables)
+        return self.table
 
 # Te following step is to create the customers, and only information that we hold about them is their type, so basically
 # we create a list with the number of all the 3 types of costumers, and then using the Customer object we will create a
@@ -178,16 +182,31 @@ class Table(object):
 
             return [CasinoGain, PlayerGains,Amounts,Bets]
 
-TotalGains = 0
-PlayersStandUp = []
 
-for i in range(1,len(CasinoTables)+1):
-    TotalGains += float(Table.SimulateGame(Table(i))[0])
-    for j in range(len(Table(i).Players)):
-        PlayersStandUp.append(Table(i).Players[j])
+def StandingUpAndProfit(tables):
+    TotalGains = 0
+    PlayersStandUp = []
+    for i in range(1,len(tables)+1):
+        x = Table(i)
+        TotalGains += float(Table.SimulateGame(x)[0])
+        for j in range(len(Table(i).Players)):
+            PlayersStandUp.append(x.Players[j])
+    return (TotalGains,PlayersStandUp)
 
 
 
+x = StandingUpAndProfit(CasinoTables)
+
+print(x[1][1].setTable)
+
+
+
+
+
+
+
+#print(Table(1).Players[0].budget,Table(1).Players[0].bet)
+#print(PlayersStandUp[0].budget,PlayersStandUp[0].bet)
 
 
 # class Customer:
