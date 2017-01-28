@@ -12,16 +12,14 @@ freestartbudget = 200
 
 
 class customer(object):
-    def __init__(self, custID, table=0, bet =0, budget=0):
-        self.custID = custID
+    def __init__(self, table=0, bet =0, budget=0):
         self.table = table
         self.bet = bet
         self.budget = budget
 
 
 class returningcustomer(customer):
-    def __init__(self, custID, bet=0, table=0, budget=0):
-        super(returningcustomer, self).__init__(custID)
+    def __init__(self, bet=0, table=0, budget=0):
         super(returningcustomer, self).__init__(table)
         super(returningcustomer, self).__init__(budget)
         super(returningcustomer, self).__init__(bet)
@@ -39,8 +37,7 @@ class returningcustomer(customer):
         self.budget += update -self.bet
 class onetimecustomer(customer):
 
-    def __init__(self, custID, table=0, bet=0, budget=0):
-        super(onetimecustomer, self).__init__(custID)
+    def __init__(self, table=0, bet=0, budget=0):
         super(onetimecustomer, self).__init__(table)
         super(onetimecustomer, self).__init__(budget)
         super(onetimecustomer, self).__init__(bet)
@@ -55,8 +52,7 @@ class onetimecustomer(customer):
     def setbet(self):
         return False
 class bachelorcustomer(customer):
-    def __init__(self, custID, table=0, budget=0, bet=0):
-        super(bachelorcustomer, self).__init__(custID)
+    def __init__(self, table=0, budget=0, bet=0):
         super(bachelorcustomer, self).__init__(table)
         super(bachelorcustomer, self).__init__(budget)
         super(bachelorcustomer, self).__init__(bet)
@@ -70,13 +66,31 @@ class bachelorcustomer(customer):
         self.budget += update -self.bet
     def setbet(self):
         return False
+
+class Employee(object):
+    def __init__(self,wage = employeewage):
+        self.wage = wage
+
+class Croupier(Employee):
+    def __init__(self, wage = employeewage, gain = 0):
+        super(Croupier, self).__init__(wage)
+        self.gain = gain
+    def CroupierGain(self,casinoprofit):
+        self.gain = 0.05*casinoprofit
+
+class Barman(Employee):
+    def __init__(self, wage = employeewage, tips = 0):
+        super(Barman, self).__init__(wage)
+        self.tips = tips
+    def BarmanTips(self):
+        self.gain = random.randint(0,20)
+
+
 class table(object):
-    def __init__(self, tableID, minimumbet=0):
-        self.tableID = tableID
+    def __init__(self, minimumbet=0):
         self.minimumbet = minimumbet
 class Craps(table):
-    def __init__(self, tableID, minimumbet =0):
-        super(Craps, self).__init__(tableID)
+    def __init__(self, minimumbet =0):
         super(Craps,self).__init__(minimumbet)
         self.minimumbet = random.choice([0, 25, 50])
     def SimulateGame(self, amounts):
@@ -106,8 +120,7 @@ class Craps(table):
 
 class Roulette(table):
 
-    def __init__(self, tableID, minimumbet=0):
-        super(Roulette,self).__init__(tableID)
+    def __init__(self, minimumbet=0):
         super(Roulette,self).__init__(minimumbet)
         self.minimumbet = random.choice([50, 100, 200])
 
