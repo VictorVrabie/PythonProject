@@ -211,17 +211,14 @@ for i in range(len(loscostumers)):
         losdrinkers.append(loscostumers[i])
 losdrinkers = random.sample(losdrinkers,nbbarmen)
 
-
-
-
-
+# Update the budgets and the gains
 for i in range(len(losdrinkers)):
     losbarmans[i].barmanTips(losdrinkers[i].giveTip())
     losbarmans[i].barmanSales(losdrinkers[i].getDrink())
     Badiga.DrinkCash(losdrinkers[i].getDrink())
 
 for i in range(len(losbarmans)):
-    print(losbarmans[i].alcsales,losbarmans[i].tips,)
+    print(losbarmans[i].alcsales,losbarmans[i].tips)
 
 
 
