@@ -245,15 +245,10 @@ class Casino(object):
                     losbarmans[i].barmanTips(losdrinkers[i].giveTip())
                     losbarmans[i].barmanSales(losdrinkers[i].getDrink())
                     self.DrinkCash(losdrinkers[i].getDrink())
-                print(self.cash)
-
-            # def repeat(SimulateRound, n=3):
-            #     if n==1:
-            #         return(SimulateRound())
-            #     else:
-            #         return SimulateRound(repeat(SimulateRound,n-1))
 
 
 JoyCasino = Casino(10, 10, 4, 200, 50000, 100, 0.5, 0.1, 200)
 
 JoyCasino.SimulateEvening()
+
+print(JoyCasino.cash)
