@@ -213,7 +213,7 @@ for z in range(len(jugadores)):
 
 
 
-crp = []
+crp=[]
 # Simulate one round
 for i in range(len(lostables)):
     amounts = []
@@ -227,5 +227,6 @@ for i in range(len(lostables)):
         casinogain = auxiliary[0]
         jugadores[i][j].updatewealth(playergains[j])
     lostables[i].croupier.commission(casinogain)
-
+    crp.append(lostables[i].croupier.partofwin)
+print(crp)
 
