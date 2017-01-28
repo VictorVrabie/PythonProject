@@ -1,5 +1,5 @@
 import random
-random.seed(1)
+# random.seed(1)
 
 # nbroulettetables = 10
 # nbcrapstables =10
@@ -245,7 +245,6 @@ class Casino(object):
                     losbarmans[i].barmanTips(losdrinkers[i].giveTip())
                     losbarmans[i].barmanSales(losdrinkers[i].getDrink())
                     self.DrinkCash(losdrinkers[i].getDrink())
-                print(self.cash)
 
 
 JoyCasino = Casino(10, 10, 4, 200, 50000, 100, 0.5, 0.1, 200)
