@@ -250,6 +250,8 @@ class Casino(object):
 
             # We don't forget to pay our employees
             self.cash -= self.employeewage * (self.nbbarmen + self.nbcrapstables + self.nbroulettetables)
+            # And the free starting budget for bachelor costumers
+            self.cash -= self.freestartbudget * (self.sharebachelorcustomers*self.nbcustomers)
 
 
 
