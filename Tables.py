@@ -216,7 +216,7 @@ losdrinkers = []
 for i in range(len(loscostumers)):
     if loscostumers[i].budget > 60:
         losdrinkers.append(loscostumers[i])
-losdrinkers = random.sample(losdrinkers,nbbarmen)
+losdrinkers = random.sample(losdrinkers,len(losbarmans))
 
 # Update the budgets and the gains
 for i in range(len(losdrinkers)):
@@ -258,7 +258,7 @@ losdrinkers = []
 for i in range(len(loscostumers)):
     if loscostumers[i].budget > 60:
         losdrinkers.append(loscostumers[i])
-losdrinkers = random.sample(losdrinkers,nbbarmen)
+losdrinkers = random.sample(losdrinkers,len(losbarmans))
 
 # Update the budgets and the gains
 for i in range(len(losdrinkers)):
