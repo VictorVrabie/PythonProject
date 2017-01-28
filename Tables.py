@@ -1,4 +1,5 @@
 import random
+random.seed(1)
 
 nbroulettetables = 10
 nbcrapstables =10
@@ -204,6 +205,12 @@ losbarmans=[]
 for i in range(nbbarmen):
     losbarmans.append(Barman(i))
 
+
+
+
+
+####### Here should the function for one round start
+
 #Creating the people who will drink
 losdrinkers = []
 for i in range(len(loscostumers)):
@@ -217,44 +224,49 @@ for i in range(len(losdrinkers)):
     losbarmans[i].barmanSales(losdrinkers[i].getDrink())
     Badiga.DrinkCash(losdrinkers[i].getDrink())
 
-for i in range(len(losbarmans)):
-    print(losbarmans[i].alcsales,losbarmans[i].tips)
+#Sitdown players for a round
+for i in range(len(loscostumers)):
+    loscostumers[i].sitdown(lostables)
+
+#Update the bets since now they are seated at tables
+for i in range(len(loscostumers)):
+    loscostumers[i].setbet()
 
 
 
-#
-# ####### Here should the function for one round start
-#
-# #Sitdown players for a round
-# for i in range(len(loscostumers)):
-#     loscostumers[i].sitdown(lostables)
-#
-# #Update the bets since now they are seated at tables
-# for i in range(len(loscostumers)):
-#     loscostumers[i].setbet
-#
-#
-#
-# #Create a list with lists of players for each table
-# jugadores = [[] for item in lostables]
-# for z in range(len(jugadores)):
-#     for item in range(len(loscostumers)):
-#         if loscostumers[item].table == lostables[z]:
-#             jugadores[z].append(loscostumers[item])
-#
-#
-# x=Casino()
-#
-# # Simulate one round
-# for i in range(len(lostables)):
-#     amounts = []
-#     for j in range(len(jugadores[i])):
-#         amounts.append(jugadores[i][j].bet)
-#     auxiliary=lostables[i].SimulateGame(amounts)
-#     for j in range(len(jugadores[i])):
-#         jugadores[i][j].updatewealth(auxiliary[1][j])
-#     loscroupiers[i].commission(auxiliary[0])
-#     x.getCash(auxiliary[0])
+#Create a list with lists of players for each table
+jugadores = [[] for item in lostables]
+for z in range(len(jugadores)):
+    for item in range(len(loscostumers)):
+        if loscostumers[item].table == lostables[z]:
+            jugadores[z].append(loscostumers[item])
+
+
+# Simulate one round
+for i in range(len(lostables)):
+    amounts = []
+    for j in range(len(jugadores[i])):
+        amounts.append(jugadores[i][j].bet)
+    auxiliary=lostables[i].SimulateGame(amounts)
+    for j in range(len(jugadores[i])):
+        jugadores[i][j].updatewealth(auxiliary[1][j])
+    loscroupiers[i].commission(auxiliary[0])
+    Badiga.getCash(auxiliary[0])
+
+# Drinking one more time
+losdrinkers = []
+for i in range(len(loscostumers)):
+    if loscostumers[i].budget > 60:
+        losdrinkers.append(loscostumers[i])
+losdrinkers = random.sample(losdrinkers,nbbarmen)
+
+# Update the budgets and the gains
+for i in range(len(losdrinkers)):
+    losbarmans[i].barmanTips(losdrinkers[i].giveTip())
+    losbarmans[i].barmanSales(losdrinkers[i].getDrink())
+    Badiga.DrinkCash(losdrinkers[i].getDrink())
+
+print(Badiga.cash)
 
 
 
