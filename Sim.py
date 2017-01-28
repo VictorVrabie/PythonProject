@@ -1,5 +1,5 @@
 import random
-# random.seed(1)
+random.seed(1)
 
 # nbroulettetables = 10
 # nbcrapstables =10
@@ -10,6 +10,7 @@ import random
 # sharereturningcustomers = 0.5
 # sharebachelorcustomers = 0.1
 # freestartbudget = 200
+
 class customer(object):
     def __init__(self, custID, table=0, bet =0, budget=0):
         self.custID = custID
@@ -245,6 +246,9 @@ class Casino(object):
                     losbarmans[i].barmanTips(losdrinkers[i].giveTip())
                     losbarmans[i].barmanSales(losdrinkers[i].getDrink())
                     self.DrinkCash(losdrinkers[i].getDrink())
+
+            # We don't forget to pay our employees
+            self.cash -= self.employeewage * (self.nbbarmen + self.nbcrapstables + self.nbroulettetables)
 
 
 JoyCasino = Casino(10, 10, 4, 200, 50000, 100, 0.5, 0.1, 200)
