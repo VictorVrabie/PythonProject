@@ -1,4 +1,5 @@
 import random
+import numpy
 random.seed(1)
 
 # nbroulettetables = 10
@@ -55,7 +56,7 @@ class onetimecustomer(customer):
     def setbet(self):
         return False
 class bachelorcustomer(customer):
-    def __init__(self, freestartbudget, custID, table=0, budget=0, bet=0, ):
+    def __init__(self, freestartbudget, custID, table=0, budget=0, bet=0 ):
         super(bachelorcustomer, self).__init__(custID, table, budget, bet)
         self.budget = random.randint(200, 500) + freestartbudget
         self.bet = random.randint(0, self.budget // 3)
@@ -77,7 +78,7 @@ class Croupier(Employee):
         self.croupierID = croupierID
     def commission(self, partofwin):
         if partofwin > 0:
-            self.partofwin += float(partofwin) * 0.05
+            self.partofwin += float(partofwin) * 0.005
 class Barman(Employee):
     def __init__(self, wage, tips =0, alcsales=0):
         super(Barman, self).__init__(wage)
@@ -161,7 +162,7 @@ class Casino(object):
         self.freestartbudget = freestartbudget
     def getCash(self,income):
         if income > 0:
-            self.cash += float(income)*0.95
+            self.cash += float(income)*0.995
     def DrinkCash(self,cash):
         self.cash += cash
 
@@ -251,8 +252,40 @@ class Casino(object):
             self.cash -= self.employeewage * (self.nbbarmen + self.nbcrapstables + self.nbroulettetables)
 
 
-JoyCasino = Casino(10, 10, 4, 200, 50000, 100, 0.5, 0.1, 200)
 
-JoyCasino.SimulateEvening()
+            # Mean of tips, alcsales and
+            # crp= []
+            # for i in range(len(loscroupiers)):
+            #     crp.append(loscroupiers[i].partofwin)
+            # print(numpy.mean(crp))
+            #
+            # tps = []
+            # for i in range(len(losbarmans)):
+            #     tps.append(losbarmans[i].tips)
+            # print(numpy.mean(tps))
+            #
+            # alc = []
+            # for i in range(len(losbarmans)):
+            #     alc.append(losbarmans[i].alcsales)
+            # print(numpy.mean(alc))
 
-print(JoyCasino.cash)
+
+
+JoyCasino = Casino(10,10, 4, 200, 50000, 100, 0.5, 0.1, 200)
+
+
+
+# Oleaca de sodomie
+output=[]
+for i in range(1000):
+    JoyCasino.SimulateEvening()
+    output.append(JoyCasino.cash - 50000)
+otp = []
+for i in range(len(output)-1):
+    otp.append(output[i+1]-output[i])
+print(numpy.mean(otp))
+
+import matplotlib.pyplot as plt; plt.rcdefaults()
+import matplotlib.pyplot as plt
+plt.bar(range(1,1000), otp, align='center', alpha=0.5)
+plt.show()

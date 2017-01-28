@@ -266,7 +266,7 @@ for i in range(len(losdrinkers)):
     losbarmans[i].barmanSales(losdrinkers[i].getDrink())
     Badiga.DrinkCash(losdrinkers[i].getDrink())
 
-print(Badiga.cash)
+print(Badiga.cash,)
 
 
 
