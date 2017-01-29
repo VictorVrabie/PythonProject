@@ -284,22 +284,22 @@ class Casino(object):
             # We don't forget to pay our employees at the end of the day
             self.cash -= self.employeewage * (self.nbbarmen + self.nbcrapstables + self.nbroulettetables)
 
-JoyCasino = Casino(20,0, 4, 200, 50000, 100, 0.5, 0.1, 200)
+
+JoyCasino = Casino(10,10, 4, 200, 50000, 100, 0.5, 0.1, 200)
 
 
-# Plotting the profits
-
+# Plotting the outcomes
 import matplotlib.pyplot as plt; plt.rcdefaults()
 import matplotlib.pyplot as plt
 
-
 output=[]
 for i in range(1000):
-    output.append(JoyCasino.SimulateEvening())
+    JoyCasino.SimulateEvening()
+    output.append(JoyCasino.cash)
 plt.bar(range(1,1001),output)
 plt.show()
 
-#  otp = []
+# otp = []
 # for i in range(len(output)-1):
 #     otp.append(output[i+1]-output[i])
 # plt.bar(range(1,1000),otp)
