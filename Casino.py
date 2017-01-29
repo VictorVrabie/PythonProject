@@ -306,7 +306,6 @@ class Casino(object):
             # print(numpy.mean(alc))
 
 
-
 JoyCasino = Casino(10,10, 4, 200, 50000, 100, 0.5, 0.1, 200)
 JoyCasino.SimulateEvening()
 print(JoyCasino.cash)
