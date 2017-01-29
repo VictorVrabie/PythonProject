@@ -1,4 +1,5 @@
 import random
+import numpy
 
 
 class Customer(object):
@@ -291,14 +292,12 @@ class Casino(object):
 
 
 JoyCasino = Casino(10,10, 4, 200, 50000, 100, 0.5, 0.1, 200)
-JoyCasino.SimulateEvening()
-print(JoyCasino.cash)
 
 
 # # Plotting the evolution of outcomes
 # import matplotlib.pyplot as plt; plt.rcdefaults()
 # import matplotlib.pyplot as plt
-#
+
 # output=[]
 # for i in range(1000):
 #     JoyCasino.SimulateEvening()
@@ -310,5 +309,37 @@ print(JoyCasino.cash)
 # otp = []
 # for i in range(len(output)-1):
 #     otp.append(output[i+1]-output[i])
+# print(numpy.mean(otp))
+
 # plt.bar(range(1,1000),otp)
 # plt.show()
+
+
+
+
+################ B
+#### Creating a 20 Roulette casino
+RouletteCasino = Casino(20,0, 4, 200, 50000, 100, 0.5, 0.1, 200)
+Routput=[]
+for i in range(1000):
+    RouletteCasino.SimulateEvening()
+    Routput.append(RouletteCasino.cash)
+Rotp = []
+for i in range(len(Routput)-1):
+    Rotp.append(Routput[i+1]-Routput[i])
+# The mean profit every evening
+print(numpy.mean(Rotp))
+
+
+
+#### And the 20 Craps casino
+CrapsCasino = Casino(0,20, 4, 200, 50000, 100, 0.5, 0.1, 200)
+Coutput=[]
+for i in range(1000):
+    CrapsCasino.SimulateEvening()
+    Coutput.append(CrapsCasino.cash)
+Cotp = []
+for i in range(len(Coutput)-1):
+    Cotp.append(Coutput[i+1]-Coutput[i])
+# The mean profit every evening
+print(numpy.mean(Cotp))
