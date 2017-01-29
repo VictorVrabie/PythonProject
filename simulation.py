@@ -31,13 +31,3 @@ import Craps
 #     print(out)
 # print(out[0]/out[1])
 
-
-import Evening
-
-amountsRoulette = [10, 85, 120, 65, 150, 122]
-betsRoulette = [10, 24, 36, 0, 11, 24]
-amountsCraps = [200, 14, 58, 145, 23, 9]
-betsCraps = [4, 5 ,9, 2, 11, 10]
-table1= Evening.Table(100)
-print(table1.SimulateGame("roulette",betsRoulette, amountsRoulette))
-print(table1.SimulateGame("craps",betsCraps, amountsCraps))

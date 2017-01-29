@@ -311,7 +311,7 @@ class Casino(object):
 JoyCasino = Casino(10,10, 4, 200, 50000, 100, 0.5, 0.1, 200)
 JoyCasino.SimulateEvening()
 print(JoyCasino.cash)
-#
+
 # # Oleaca de sodomie
 # output=[]
 # for i in range(1000):
@@ -320,9 +320,9 @@ print(JoyCasino.cash)
 # otp = []
 # for i in range(len(output)-1):
 #     otp.append(output[i+1]-output[i])
-# print(otp)
+# print(numpy.mean(otp),numpy.percentile(otp,50))
 #
 # import matplotlib.pyplot as plt; plt.rcdefaults()
 # import matplotlib.pyplot as plt
-# plt.bar(range(1,1001), output, align='center', alpha=0.5)
+# plt.bar(range(1,1000), otp, align='center', alpha=0.5)
 # plt.show()
