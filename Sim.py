@@ -110,7 +110,7 @@ class Barman(Employee):
         self.tips += tip
 
     def barmanSales(self,sales):
-        self.alcsales += sales
+        self.alcsales = sales
 
 
 
@@ -223,7 +223,10 @@ class Casino(object):
             #Create de Barmans
             losbarmans=[]
             for i in range(self.nbbarmen):
-                losbarmans.append(Barman(i,self.employeewage))
+                losbarmans.append(Barman(self.employeewage))
+
+            #We add the free starting budget for bachelor costumers
+            self.cash -= self.freestartbudget * (self.sharebachelorcustomers*self.nbcustomers)
 
 
             for i in range(3):
@@ -238,7 +241,7 @@ class Casino(object):
                 for i in range(len(losdrinkers)):
                     losbarmans[i].barmanTips(losdrinkers[i].giveTip())
                     losbarmans[i].barmanSales(losdrinkers[i].getDrink())
-                    self.DrinkCash(losdrinkers[i].getDrink())
+                    self.DrinkCash(losbarmans[i].alcsales)
 
                     # Sitdown players for a round
                 for i in range(len(loscostumers)):
@@ -277,13 +280,10 @@ class Casino(object):
                 for i in range(len(losdrinkers)):
                     losbarmans[i].barmanTips(losdrinkers[i].giveTip())
                     losbarmans[i].barmanSales(losdrinkers[i].getDrink())
-                    self.DrinkCash(losdrinkers[i].getDrink())
+                    self.DrinkCash(losbarmans[i].alcsales)
 
-            # We don't forget to pay our employees
+            # We don't forget to pay our employees at the end of the day
             self.cash -= self.employeewage * (self.nbbarmen + self.nbcrapstables + self.nbroulettetables)
-            # And the free starting budget for bachelor costumers
-            self.cash -= self.freestartbudget * (self.sharebachelorcustomers*self.nbcustomers)
-
 
             # #Function that show how the players have betted, to make shure they don't bet more than they have
             # for i in range(len(loscostumers)):
@@ -311,7 +311,7 @@ class Casino(object):
 JoyCasino = Casino(10,10, 4, 200, 50000, 100, 0.5, 0.1, 200)
 JoyCasino.SimulateEvening()
 print(JoyCasino.cash)
-
+#
 # # Oleaca de sodomie
 # output=[]
 # for i in range(1000):
@@ -320,9 +320,9 @@ print(JoyCasino.cash)
 # otp = []
 # for i in range(len(output)-1):
 #     otp.append(output[i+1]-output[i])
-# print(numpy.mean(otp))
+# print(otp)
 #
 # import matplotlib.pyplot as plt; plt.rcdefaults()
 # import matplotlib.pyplot as plt
-# plt.bar(range(1,1000), otp, align='center', alpha=0.5)
+# plt.bar(range(1,1001), output, align='center', alpha=0.5)
 # plt.show()
