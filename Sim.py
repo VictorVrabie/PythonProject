@@ -1,103 +1,126 @@
 import random
 import numpy
-random.seed(1)
 
-# nbroulettetables = 10
-# nbcrapstables =10
-# nbbarmen = 4
-# employeewage = 200
-# startingcash = 50000
-# nbcustomers =100
-# sharereturningcustomers = 0.5
-# sharebachelorcustomers = 0.1
-# freestartbudget = 200
 
-class customer(object):
+class Customer(object):
     def __init__(self, custID, table=0, bet =0, budget=0):
         self.custID = custID
         self.table = table
         self.bet = bet
         self.budget = budget
+
     def getDrink(self):
-        drinkcost = random.randint(1,2) * 20
+        drinkcost = random.randint(1, 2) * 20
         self.budget -= drinkcost
         return drinkcost
+
     def giveTip(self):
         tip = random.randint(0,20)
         self.budget -= tip
         return tip
-class returningcustomer(customer):
+
+
+class ReturningCustomer(Customer):
     def __init__(self, custID, bet=0, table=0, budget=0):
-        super(returningcustomer, self).__init__(custID, table, budget, bet)
+        super(ReturningCustomer, self).__init__(custID, table, budget, bet)
         self.budget = random.randint(100, 300)
+
     def setbet(self):
-        if self.budget >= self.table.minimumbet:
+        if self.budget >= self.table.minimumbet :
             self.bet = self.table.minimumbet
         else:
             self.bet=0
+
     def sitdown(self, tablelist):
         self.table = random.choice(tablelist)
+
     def standup(self, table=0):
         self.table = table
+
     def updatewealth(self,update):
         self.budget += update -self.bet
-class onetimecustomer(customer):
 
+class OneTimeCustomer(Customer):
     def __init__(self, custID, table=0, bet=0, budget=0):
-        super(onetimecustomer, self).__init__(custID, table, budget, bet)
+        super(OneTimeCustomer, self).__init__(custID, table, budget, bet)
         self.budget = random.randint(200, 300)
         self.bet = random.randint(0, self.budget)
+
     def sitdown(self, tablelist):
         self.table = random.choice(tablelist)
+
     def standup(self, table=0):
         self.table = table
+
     def updatewealth(self,update):
         self.budget += update -self.bet
+
     def setbet(self):
-        return False
-class bachelorcustomer(customer):
+        if self.budget<self.bet:
+            self.bet = 0
+
+class BachelorCustomer(Customer):
     def __init__(self, freestartbudget, custID, table=0, budget=0, bet=0 ):
-        super(bachelorcustomer, self).__init__(custID, table, budget, bet)
+        super(BachelorCustomer, self).__init__(custID, table, budget, bet)
         self.budget = random.randint(200, 500) + freestartbudget
         self.bet = random.randint(0, self.budget // 3)
+
     def sitdown(self, tablelist):
         self.table = random.choice(tablelist)
+
     def standup(self, table=0):
         self.table = table
+
     def updatewealth(self,update):
         self.budget += update -self.bet
+
     def setbet(self):
-        return False
+        if self.budget<self.bet:
+            self.bet = 0
+
+
+
 class Employee(object):
     def __init__(self, wage):
         self.wage = wage
+
+
 class Croupier(Employee):
     def __init__(self, croupierID, wage, partofwin=0):
         super(Croupier, self).__init__(wage)
         self.partofwin = partofwin
         self.croupierID = croupierID
+
     def commission(self, partofwin):
         if partofwin > 0:
             self.partofwin += float(partofwin) * 0.005
+
 class Barman(Employee):
     def __init__(self, wage, tips =0, alcsales=0):
         super(Barman, self).__init__(wage)
         self.tips = tips
         self.alcsales = alcsales
+
     def barmanTips(self, tip):
         self.tips += tip
+
     def barmanSales(self,sales):
         self.alcsales += sales
-class table(object):
+
+
+
+class Table(object):
     def __init__(self, employeewage, tableID, minimumbet=0):
         self.tableID = tableID
         self.minimumbet = minimumbet
         self.croupier = Croupier(float(tableID),employeewage)
         self.employeewage = employeewage
-class Craps(table):
+
+class Craps(Table):
     def __init__(self, tableID, employeewage, croupier=0,  minimumbet =0):
         super(Craps, self).__init__(employeewage,tableID, croupier)
         self.minimumbet = random.choice([0, 25, 50])
+
     def SimulateGame(self, amounts):
         A = []
         for item in amounts:
@@ -122,7 +145,8 @@ class Craps(table):
         CasinoGain = sum(amounts) - sum(PlayerGains)
 
         return [CasinoGain, PlayerGains]
-class Roulette(table):
+
+class Roulette(Table):
 
     def __init__(self, employeewage, tableID, croupier=0,  minimumbet=0):
         super(Roulette,self).__init__(employeewage, tableID, minimumbet)
@@ -160,9 +184,11 @@ class Casino(object):
         self.sharereturningcustomers = sharereturningcustomers
         self.sharebachelorcustomers = sharebachelorcustomers
         self.freestartbudget = freestartbudget
+
     def getCash(self,income):
         if income > 0:
             self.cash += float(income)*0.995
+
     def DrinkCash(self,cash):
         self.cash += cash
 
@@ -170,11 +196,11 @@ class Casino(object):
             #Create the customers
             loscostumers = []
             for i in range(int(self.sharereturningcustomers * self.nbcustomers)):
-                loscostumers.append(returningcustomer(i+1))
+                loscostumers.append(ReturningCustomer(i+1))
             for i in range(int(self.sharereturningcustomers * self.nbcustomers ), int(self.sharereturningcustomers * self.nbcustomers + self.sharebachelorcustomers * self.nbcustomers)):
-                loscostumers.append((bachelorcustomer(i+1, self.freestartbudget)))
+                loscostumers.append((BachelorCustomer(i+1, self.freestartbudget)))
             for i in range(int(self.sharereturningcustomers * self.nbcustomers + self.sharebachelorcustomers * self.nbcustomers), int(self.nbcustomers)):
-                loscostumers.append((onetimecustomer(i+1)))
+                loscostumers.append((OneTimeCustomer(i+1)))
 
 
             #Create the tables
@@ -254,8 +280,12 @@ class Casino(object):
             self.cash -= self.freestartbudget * (self.sharebachelorcustomers*self.nbcustomers)
 
 
+            # #Function that show how the players have betted, to make shure they don't bet more than they have
+            # for i in range(len(loscostumers)):
+            #     print(loscostumers[i].table.minimumbet, loscostumers[i].budget, loscostumers[i].bet)
 
-            # Mean of tips, alcsales and
+
+            # Mean of tips, alcsales and croupier profits
             # crp= []
             # for i in range(len(loscroupiers)):
             #     crp.append(loscroupiers[i].partofwin)
@@ -274,7 +304,6 @@ class Casino(object):
 
 
 JoyCasino = Casino(10,10, 4, 200, 50000, 100, 0.5, 0.1, 200)
-
 
 
 # Oleaca de sodomie
