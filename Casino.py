@@ -284,43 +284,23 @@ class Casino(object):
             # We don't forget to pay our employees at the end of the day
             self.cash -= self.employeewage * (self.nbbarmen + self.nbcrapstables + self.nbroulettetables)
 
-            # #Function that show how the players have betted, to make shure they don't bet more than they have
-            # for i in range(len(loscostumers)):
-            #     print(loscostumers[i].table.minimumbet, loscostumers[i].budget, loscostumers[i].bet)
-            #
-
-            # Mean of tips, alcsales and croupier profits
-            # crp= []
-            # for i in range(len(loscroupiers)):
-            #     crp.append(loscroupiers[i].partofwin)
-            # print(numpy.mean(crp))
-            #
-            # tps = []
-            # for i in range(len(losbarmans)):
-            #     tps.append(losbarmans[i].tips)
-            # print(numpy.mean(tps))
-            #
-            # alc = []
-            # for i in range(len(losbarmans)):
-            #     alc.append(losbarmans[i].alcsales)
-            # print(numpy.mean(alc))
+JoyCasino = Casino(20,0, 4, 200, 50000, 100, 0.5, 0.1, 200)
 
 
-JoyCasino = Casino(10,10, 4, 200, 50000, 100, 0.5, 0.1, 200)
-JoyCasino.SimulateEvening()
-print(JoyCasino.cash)
-
-# Oleaca de sodomie
-output=[]
-for i in range(1000):
-    JoyCasino.SimulateEvening()
-    output.append(JoyCasino.cash - 50000)
-otp = []
-for i in range(len(output)-1):
-    otp.append(output[i+1]-output[i])
-print(numpy.mean(otp),numpy.percentile(otp,50))
+# Plotting the profits
 
 import matplotlib.pyplot as plt; plt.rcdefaults()
 import matplotlib.pyplot as plt
-plt.plot(otp)
+
+
+output=[]
+for i in range(1000):
+    output.append(JoyCasino.SimulateEvening())
+plt.bar(range(1,1001),output)
 plt.show()
+
+#  otp = []
+# for i in range(len(output)-1):
+#     otp.append(output[i+1]-output[i])
+# plt.bar(range(1,1000),otp)
+# plt.show()
