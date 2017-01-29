@@ -317,7 +317,7 @@ JoyCasino = Casino(10,10, 4, 200, 50000, 100, 0.5, 0.1, 200)
 
 
 
-################ B
+################ Bonus ##################
 #### Creating a 20 Roulette casino
 RouletteCasino = Casino(20,0, 4, 200, 50000, 100, 0.5, 0.1, 200)
 Routput=[]
@@ -329,8 +329,6 @@ for i in range(len(Routput)-1):
     Rotp.append(Routput[i+1]-Routput[i])
 # The mean profit every evening
 print(numpy.mean(Rotp))
-
-
 
 #### And the 20 Craps casino
 CrapsCasino = Casino(0,20, 4, 200, 50000, 100, 0.5, 0.1, 200)
