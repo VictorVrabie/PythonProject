@@ -306,7 +306,6 @@ print(JoyCasino.cash)
 # plt.bar(range(1,1001),output)
 # plt.show()
 
-
 #Plotting the evolution of profit earne every day
 # otp = []
 # for i in range(len(output)-1):
