@@ -28,6 +28,7 @@ class ReturningCustomer(Customer):
     def setbet(self):
         if self.budget >= self.table.minimumbet :
             self.bet = self.table.minimumbet
+            self.budget -= self.bet
         else:
             self.bet=0
 
@@ -38,7 +39,7 @@ class ReturningCustomer(Customer):
         self.table = table
 
     def updatewealth(self,update):
-        self.budget += update -self.bet
+        self.budget += update
 
 class OneTimeCustomer(Customer):
     def __init__(self, custID, table=0, bet=0, budget=0):
@@ -53,11 +54,13 @@ class OneTimeCustomer(Customer):
         self.table = table
 
     def updatewealth(self,update):
-        self.budget += update -self.bet
+        self.budget += update
 
     def setbet(self):
         if self.budget<self.bet:
             self.bet = 0
+        else:
+            self.budget -= self.bet
 
 class BachelorCustomer(Customer):
     def __init__(self, freestartbudget, custID, table=0, budget=0, bet=0 ):
@@ -72,11 +75,13 @@ class BachelorCustomer(Customer):
         self.table = table
 
     def updatewealth(self,update):
-        self.budget += update -self.bet
+        self.budget += update
 
     def setbet(self):
         if self.budget<self.bet:
             self.bet = 0
+        else:
+            self.budget -= self.bet
 
 
 
@@ -283,7 +288,7 @@ class Casino(object):
             # #Function that show how the players have betted, to make shure they don't bet more than they have
             # for i in range(len(loscostumers)):
             #     print(loscostumers[i].table.minimumbet, loscostumers[i].budget, loscostumers[i].bet)
-
+            #
 
             # Mean of tips, alcsales and croupier profits
             # crp= []
@@ -304,19 +309,20 @@ class Casino(object):
 
 
 JoyCasino = Casino(10,10, 4, 200, 50000, 100, 0.5, 0.1, 200)
+JoyCasino.SimulateEvening()
+print(JoyCasino.cash)
 
-
-# Oleaca de sodomie
-output=[]
-for i in range(1000):
-    JoyCasino.SimulateEvening()
-    output.append(JoyCasino.cash - 50000)
-otp = []
-for i in range(len(output)-1):
-    otp.append(output[i+1]-output[i])
-print(numpy.mean(otp))
-
-import matplotlib.pyplot as plt; plt.rcdefaults()
-import matplotlib.pyplot as plt
-plt.bar(range(1,1000), otp, align='center', alpha=0.5)
-plt.show()
+# # Oleaca de sodomie
+# output=[]
+# for i in range(1000):
+#     JoyCasino.SimulateEvening()
+#     output.append(JoyCasino.cash - 50000)
+# otp = []
+# for i in range(len(output)-1):
+#     otp.append(output[i+1]-output[i])
+# print(numpy.mean(otp))
+#
+# import matplotlib.pyplot as plt; plt.rcdefaults()
+# import matplotlib.pyplot as plt
+# plt.bar(range(1,1000), otp, align='center', alpha=0.5)
+# plt.show()
