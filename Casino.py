@@ -1,5 +1,4 @@
 import random
-import numpy
 
 
 class Customer(object):
@@ -198,6 +197,7 @@ class Casino(object):
         self.cash += cash
 
     def SimulateEvening(self):
+
             #Create the customers
             loscostumers = []
             for i in range(int(self.sharereturningcustomers * self.nbcustomers)):
@@ -229,35 +229,39 @@ class Casino(object):
             self.cash -= self.freestartbudget * (self.sharebachelorcustomers*self.nbcustomers)
 
 
+            #Here we create the loop that will repeat the bar+game+bar session 3 times
             for i in range(3):
 
+                # Get the consumers that can afford to drink
                 losdrinkers = []
                 for i in range(len(loscostumers)):
                     if loscostumers[i].budget > 60:
                         losdrinkers.append(loscostumers[i])
+                # Choose random costumers for each barman
                 losdrinkers = random.sample(losdrinkers, len(losbarmans))
-                    # Update the budgets and the gains
+
+                # For every barman, update the budget, tips and cash, after each consumer uys drink
                 for i in range(len(losdrinkers)):
                     losbarmans[i].barmanTips(losdrinkers[i].giveTip())
                     losbarmans[i].barmanSales(losdrinkers[i].getDrink())
                     self.DrinkCash(losbarmans[i].alcsales)
 
-                    # Sitdown players for a round
+                # Sitdown players for a round
                 for i in range(len(loscostumers)):
                     loscostumers[i].sitdown(lostables)
 
-                    # Update the bets since now they are seated at tables
+                # Update the bets since now they are seated at tables
                 for i in range(len(loscostumers)):
                     loscostumers[i].setbet()
 
-                    # Create a list with lists of players for each table
+                # Create a list with lists of players for each table
                 jugadores = [[] for item in lostables]
                 for z in range(len(jugadores)):
                     for item in range(len(loscostumers)):
                         if loscostumers[item].table == lostables[z]:
                             jugadores[z].append(loscostumers[item])
 
-                    # Simulate one round
+                # Simulate one round of game
                 for i in range(len(lostables)):
                     amounts = []
                     for j in range(len(jugadores[i])):
@@ -268,14 +272,14 @@ class Casino(object):
                     loscroupiers[i].commission(auxiliary[0])
                     self.getCash(auxiliary[0])
 
-                    # Drinking one more time
+                # Drinking one more time
                 losdrinkers = []
                 for i in range(len(loscostumers)):
                     if loscostumers[i].budget > 60:
                         losdrinkers.append(loscostumers[i])
                 losdrinkers = random.sample(losdrinkers, len(losbarmans))
 
-                    # Update the budgets and the gains
+                # Update the budgets and the gains
                 for i in range(len(losdrinkers)):
                     losbarmans[i].barmanTips(losdrinkers[i].giveTip())
                     losbarmans[i].barmanSales(losdrinkers[i].getDrink())
@@ -285,20 +289,25 @@ class Casino(object):
             self.cash -= self.employeewage * (self.nbbarmen + self.nbcrapstables + self.nbroulettetables)
 
 
+
 JoyCasino = Casino(10,10, 4, 200, 50000, 100, 0.5, 0.1, 200)
+JoyCasino.SimulateEvening()
+print(JoyCasino.cash)
 
 
-# Plotting the outcomes
-import matplotlib.pyplot as plt; plt.rcdefaults()
-import matplotlib.pyplot as plt
+# # Plotting the evolution of outcomes
+# import matplotlib.pyplot as plt; plt.rcdefaults()
+# import matplotlib.pyplot as plt
+#
+# output=[]
+# for i in range(1000):
+#     JoyCasino.SimulateEvening()
+#     output.append(JoyCasino.cash)
+# plt.bar(range(1,1001),output)
+# plt.show()
 
-output=[]
-for i in range(1000):
-    JoyCasino.SimulateEvening()
-    output.append(JoyCasino.cash)
-plt.bar(range(1,1001),output)
-plt.show()
 
+#Plotting the evolution of profit earne every day
 # otp = []
 # for i in range(len(output)-1):
 #     otp.append(output[i+1]-output[i])
